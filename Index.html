@@ -123,7 +123,6 @@ function convertCurrency() {
   const outputUSD = document.getElementById('outputUSD');
   const outputEUR = document.getElementById('outputEUR');
 
-  // Calculate and display the conversion
   if (currency === 'USD') {
     outputKZT.value = (amount * exchangeRates.buy.USD).toFixed(2) + ' KZT (tenge)';
     outputUSD.value = amount.toFixed(2) + ' USD (dollar)'; 
