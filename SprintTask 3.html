@@ -123,26 +123,22 @@ function convertCurrency() {
   const outputUSD = document.getElementById('outputUSD');
   const outputEUR = document.getElementById('outputEUR');
 
-  // Calculate and display the conversion
   if (currency === 'USD') {
-    // When converting from USD, show KZT and EUR using the selling rates for USD
+  
     outputKZT.value = (amount * exchangeRates.buy.USD).toFixed(2) + ' KZT (tenge)';
     outputUSD.value = amount.toFixed(2) + ' USD (dollar)'; // Input currency
     outputEUR.value = ((amount * exchangeRates.buy.USD) / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
   } else if (currency === 'EUR') {
-    // When converting from EUR, show KZT and USD using the selling rates for EUR
     outputKZT.value = (amount * exchangeRates.buy.EUR).toFixed(2) + ' KZT (tenge)';
     outputEUR.value = amount.toFixed(2) + ' EUR (euro)'; // Input currency
     outputUSD.value = ((amount * exchangeRates.buy.EUR) / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
   } else if (currency === 'KZT') {
-    // When converting from KZT, show USD and EUR using the buying rates for KZT
     outputKZT.value = amount.toFixed(2) + ' KZT (tenge)'; // Input currency
     outputUSD.value = (amount / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
     outputEUR.value = (amount / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
   }
 }
 
-// Initial conversion based on the example values
 convertCurrency();
 </script>
 </body>
