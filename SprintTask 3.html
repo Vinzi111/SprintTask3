@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 600px;
+  margin: auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  max-width: 100%;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group input[type='number'],
+.input-group select {
+  width: calc(70% - 10px); 
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-group select {
+  width: calc(30% - 10px); 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat 95% 50%; 
+  background-size: 12px; 
+}
+
+.output-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.output-group input {
+  width: calc(33.333% - 10px);
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #e9e9e9; 
+  color: #333;
+  text-align: right;
+}
+
+.output-group input:last-child {
+  margin-right: 0;
+}
+
+.output-group input[readonly] {
+  cursor: default; 
+}
+
+button {
+  width: 10%;
+  padding: 5px;
+  background-color: #28a700; 
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px; 
+}
+
+button:hover {
+  background-color: #218838; 
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="input-group">
+    <label for="amount">Введите сумму:</label>
+    <input type="number" id="amount" placeholder="Amount" value="3000">
+    <select id="currency" onchange="convertCurrency()">
+      <option value="USD">USD (dollar)</option>
+      <option value="KZT">KZT (tenge)</option>
+      <option value="EUR">EUR (euro)</option>
+    </select>
+  </div>
+  <div class="output-group">
+    <input type="text" id="outputKZT" placeholder="KZT (tenge)" readonly>
+    <input type="text" id="outputUSD" placeholder="USD (dollar)" readonly>
+    <input type="text" id="outputEUR" placeholder="EUR (euro)" readonly>
+  </div>
+  <button onclick="convertCurrency()">Convert</button>
+</div>
+
+<script>
+const exchangeRates = {
+  buy: { USD: 429, EUR: 507 },
+  sell: { USD: 431, EUR: 509 }
+};
+
+function convertCurrency() {
+  const amount = parseFloat(document.getElementById('amount').value) || 0;
+  const currency = document.getElementById('currency').value;
+  const outputKZT = document.getElementById('outputKZT');
+  const outputUSD = document.getElementById('outputUSD');
+  const outputEUR = document.getElementById('outputEUR');
+
+  // Calculate and display the conversion
+  if (currency === 'USD') {
+    // When converting from USD, show KZT and EUR using the selling rates for USD
+    outputKZT.value = (amount * exchangeRates.buy.USD).toFixed(2) + ' KZT (tenge)';
+    outputUSD.value = amount.toFixed(2) + ' USD (dollar)'; // Input currency
+    outputEUR.value = ((amount * exchangeRates.buy.USD) / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
+  } else if (currency === 'EUR') {
+    // When converting from EUR, show KZT and USD using the selling rates for EUR
+    outputKZT.value = (amount * exchangeRates.buy.EUR).toFixed(2) + ' KZT (tenge)';
+    outputEUR.value = amount.toFixed(2) + ' EUR (euro)'; // Input currency
+    outputUSD.value = ((amount * exchangeRates.buy.EUR) / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
+  } else if (currency === 'KZT') {
+    // When converting from KZT, show USD and EUR using the buying rates for KZT
+    outputKZT.value = amount.toFixed(2) + ' KZT (tenge)'; // Input currency
+    outputUSD.value = (amount / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
+    outputEUR.value = (amount / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
+  }
+}
+
+// Initial conversion based on the example values
+convertCurrency();
+</script>
+</body>
+</html>
