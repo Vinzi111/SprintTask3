@@ -126,14 +126,14 @@ function convertCurrency() {
   // Calculate and display the conversion
   if (currency === 'USD') {
     outputKZT.value = (amount * exchangeRates.buy.USD).toFixed(2) + ' KZT (tenge)';
-    outputUSD.value = amount.toFixed(2) + ' USD (dollar)'; // Input currency
+    outputUSD.value = amount.toFixed(2) + ' USD (dollar)'; 
     outputEUR.value = ((amount * exchangeRates.buy.USD) / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
   } else if (currency === 'EUR') {
     outputKZT.value = (amount * exchangeRates.buy.EUR).toFixed(2) + ' KZT (tenge)';
-    outputEUR.value = amount.toFixed(2) + ' EUR (euro)'; // Input currency
+    outputEUR.value = amount.toFixed(2) + ' EUR (euro)'; 
     outputUSD.value = ((amount * exchangeRates.buy.EUR) / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
   } else if (currency === 'KZT') {
-    outputKZT.value = amount.toFixed(2) + ' KZT (tenge)'; // Input currency
+    outputKZT.value = amount.toFixed(2) + ' KZT (tenge)'; 
     outputUSD.value = (amount / exchangeRates.sell.USD).toFixed(2) + ' USD (dollar)';
     outputEUR.value = (amount / exchangeRates.sell.EUR).toFixed(2) + ' EUR (euro)';
   }
